@@ -11,11 +11,6 @@
       a{
         font-color: royalblue;
       }
-      @media(max-width:300px){
-        body{
-          width: 300px;
-        }
-      }
     </style>
   </head>
   <body>
@@ -40,23 +35,22 @@
       return false;
       }
     </script>
-
-    <form onsubmit="return kyo();" class="kyo-form">
-        <input type="text" name="name" placeholder="교독문 번호 입력">
+    <div class="forms" style="width:300px;">
+      <form onsubmit="return kyo();" class="kyo-form">
+          <input type="text" name="name" placeholder="교독문 번호 입력">
+          <input type="submit" value="Submit">
+      </form>
+      <!--교독문 블로그-->
+      <form onsubmit="return chan();" class="chan-form">
+        <input type="text" name="name" placeholder="찬송가 번호 입력">
         <input type="submit" value="Submit">
-    </form>
-<!--교독문 블로그-->
-    <form onsubmit="return chan();" class="chan-form">
-      <input type="text" name="name" placeholder="찬송가 번호 입력">
-      <input type="submit" value="Submit">
-    </form>
-<!--찬송가 00장 ppt-->
-    <form onsubmit="return ccm();" class="ccm-form">
-      <input type="text" name="name" placeholder="ccm 제목 입력">
-      <input type="submit" value="Submit">
-    </form>
-<!--000 ppt-->
-
-
+      </form>
+      <!--찬송가 00장 ppt-->
+      <form onsubmit="return ccm();" class="ccm-form">
+        <input type="text" name="name" placeholder="ccm 제목 입력">
+        <input type="submit" value="Submit">
+      </form>
+      <!--000 ppt-->
+    </div>
   </body>
 </html>
