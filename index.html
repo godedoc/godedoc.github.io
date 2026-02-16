@@ -1,56 +1,233 @@
-<html>
 <!DOCTYPE html>
+<html lang="ko">
   <head>
-    <meta charset="utf-8">
-    <title>ppt tool</title>
+    <meta charset="utf-8" />
+    <title>교회 PPT 제작 도구 (통합형)</title>
     <style>
-      body{
+      body {
         background-color: black;
         color: white;
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 50px;
       }
-      a{
-        font-color: royalblue;
+
+      .container {
+        width: 320px;
+        text-align: center;
+      }
+
+      /* 입력창 스타일 */
+      #main-input {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+        background-color: #222;
+        border: 2px solid royalblue;
+        color: white;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      /* 버튼 그룹 스타일 */
+      .button-group {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+
+      .button-group button {
+        padding: 12px 5px;
+        cursor: pointer;
+        background-color: royalblue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: 0.2s;
+      }
+
+      .button-group button:hover {
+        background-color: #3a5edb;
+      }
+
+      /* 키패드 전용 스타일 */
+      #keypad-container {
+        display: none;
+        padding: 15px;
+        background-color: #222;
+        border-radius: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid #444;
+      }
+
+      .keypad-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .keypad-grid button {
+        padding: 20px;
+        font-size: 20px;
+        background-color: #333;
+        color: white;
+        border: 1px solid #555;
+        cursor: pointer;
+        border-radius: 8px;
+      }
+
+      .keypad-grid button:active {
+        background-color: royalblue;
+      }
+
+      .toggle-btn {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        cursor: pointer;
+        background-color: #444;
+        color: white;
+        border: none;
+        border-radius: 5px;
       }
     </style>
   </head>
   <body>
-    <h1>교회 ppt 제작 시스템</h1>
+    <div class="container">
+      <h1>교회 PPT 제작 툴</h1>
+
+      <input
+        type="text"
+        id="main-input"
+        placeholder="번호 또는 제목 입력"
+        autofocus
+      />
+
+      <div class="button-group">
+        <button type="button" onclick="kyoSubmit()">교독문</button>
+        <button type="button" onclick="chanSubmit()">찬송가</button>
+        <button type="button" onclick="ccmSubmit()">CCM</button>
+      </div>
+
+      <button class="toggle-btn" onclick="toggleKeypad()">
+        🔢 키패드 열기/닫기
+      </button>
+
+      <div id="keypad-container">
+        <div class="keypad-grid">
+          <button type="button" onclick="inputNumber(1)">1</button>
+          <button type="button" onclick="inputNumber(2)">2</button>
+          <button type="button" onclick="inputNumber(3)">3</button>
+          <button type="button" onclick="inputNumber(4)">4</button>
+          <button type="button" onclick="inputNumber(5)">5</button>
+          <button type="button" onclick="inputNumber(6)">6</button>
+          <button type="button" onclick="inputNumber(7)">7</button>
+          <button type="button" onclick="inputNumber(8)">8</button>
+          <button type="button" onclick="inputNumber(9)">9</button>
+          <button type="button" onclick="clearInput()">C</button>
+          <button type="button" onclick="inputNumber(0)">0</button>
+          <button type="button" onclick="deleteLast()">←</button>
+        </div>
+      </div>
+
+      <!-- 성경 링크 -->
+      <div>
+        <a
+          href="https://www.godpia.com/read/reading.asp"
+          target="_blank"
+          style="
+            display: block;
+            width: 100%;
+            padding: 12px 0;
+            margin-bottom: 15px;
+            background-color: #555;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+          "
+        >
+          성경 읽기
+        </a>
+      </div>
+    </div>
+
     <script>
-      function kyo() {
-    // alert(document.forms[0].elements['name'].value);
-      var url = document.forms[0].elements['name'].value;
-      window.open("https://getwater.tistory.com/"+(1405-url)+'?category=689802','_blank');
-      return false;
+      const mainInput = document.getElementById("main-input");
+
+      //   1. 교독문 검색 함수
+      function kyoSubmit() {
+        const val = mainInput.value;
+        if (val) {
+          window.open(
+            "https://getwater.tistory.com/" + (1405 - val) + "?category=689802",
+            "_blank"
+          );
+        } else {
+          alert("교독문 번호를 입력하세요.");
+        }
       }
 
-      function chan() {
-      var url2 = document.forms[1].elements['name'].value;
-      window.open("https://www.google.com/search?q="+'새찬송가'+url2+"장ppt"+"&sourceid=chrome&ie=UTF-8",'_blank');
-      return false;
+      // 2. 찬송가 검색 함수
+      function chanSubmit() {
+        const val = mainInput.value;
+        if (val) {
+          window.open(
+            "https://www.google.com/search?q=" +
+              encodeURIComponent("새찬송가 " + val + "장 ppt"),
+            "_blank"
+          );
+        } else {
+          alert("찬송가 번호를 입력하세요.");
+        }
       }
 
-      function ccm() {
-      var url3 = document.forms[2].elements['name'].value;
-      window.open("https://www.google.com/search?q="+url3+"ppt"+"&sourceid=chrome&ie=UTF-8",'_blank');
-      return false;
+      // 3. CCM 검색 함수
+      function ccmSubmit() {
+        const val = mainInput.value;
+        if (val) {
+          window.open(
+            "https://www.google.com/search?q=" +
+              encodeURIComponent(val + " ppt"),
+            "_blank"
+          );
+        } else {
+          alert("CCM 제목을 입력하세요.");
+        }
+      }
+
+      // 키패드 토글 기능
+      function toggleKeypad() {
+        const container = document.getElementById("keypad-container");
+        container.style.display =
+          container.style.display === "none" || container.style.display === ""
+            ? "block"
+            : "none";
+      }
+
+      // 키패드 입력 함수 (통합 입력창에 고정)
+      function inputNumber(num) {
+        mainInput.value += num;
+        mainInput.focus(); // 입력 후 포커스 유지
+      }
+
+      function clearInput() {
+        mainInput.value = "";
+        mainInput.focus();
+      }
+
+      function deleteLast() {
+        mainInput.value = mainInput.value.slice(0, -1);
+        mainInput.focus();
       }
     </script>
-    <div class="forms" style="width:300px;">
-      <form onsubmit="return kyo();" class="kyo-form">
-          <input type="text" name="name" placeholder="교독문 번호 입력">
-          <input type="submit" value="Submit">
-      </form>
-      <!--교독문 블로그-->
-      <form onsubmit="return chan();" class="chan-form">
-        <input type="text" name="name" placeholder="찬송가 번호 입력">
-        <input type="submit" value="Submit">
-      </form>
-      <!--찬송가 00장 ppt-->
-      <form onsubmit="return ccm();" class="ccm-form">
-        <input type="text" name="name" placeholder="ccm 제목 입력">
-        <input type="submit" value="Submit">
-      </form>
-      <!--000 ppt-->
-    </div>
   </body>
 </html>
